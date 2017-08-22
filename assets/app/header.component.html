@@ -1,0 +1,9 @@
+<header class="box header">
+    <h1>Meine geile Seite</h1>
+    <nav class="header_buttons">
+        <a routerLinkActive="activeNav" class="button" [routerLink]="['/shoutouts']">ShoutOuts</a>
+        <a routerLinkActive="activeNav" class="button" [routerLink]="['/home']">Home</a>
+        <a routerLinkActive="activeNav" class="button" [routerLink]="['/auth']">Authentication</a>
+        <a class="button" (click)="onTest()">Test</a>
+    </nav>
+</header>

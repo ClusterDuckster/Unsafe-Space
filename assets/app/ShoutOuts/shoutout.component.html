@@ -1,0 +1,19 @@
+<article class="ShoutOut box">
+
+    <div class="ShoutOutContent box" >
+        <div>
+            {{ shoutout.content }}
+        </div>
+    </div>
+
+    <div class="ShoutOutFooter box">
+        <div class="ShoutOutAuthor">
+            {{ shoutout.author }}
+        </div>
+        <div class="ShoutOutButtons">
+            <a (click)="onEdit()">Edit</a>
+            <a (click)="onDelete()">Delete</a>
+        </div>
+    </div>
+
+</article>

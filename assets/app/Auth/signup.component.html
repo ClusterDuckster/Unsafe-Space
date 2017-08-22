@@ -1,0 +1,16 @@
+<h3>Signup</h3>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username">
+    </div>
+    <div class="form-group">
+        <label for="username">Email</label>
+        <input type="email" id="email" formControlName="email">
+    </div>
+    <div class="form-group">
+        <label for="username">Password</label>
+        <input type="password" id="password" formControlName="password">
+    </div>
+    <button class="button" type="submit" [disabled]="!signupForm.valid">Submit</button>
+</form>

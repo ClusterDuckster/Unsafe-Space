@@ -1,0 +1,10 @@
+<h1>Startseite</h1>
+<button type="button" name="login">Login</button>
+<button type="button" name="signup">Anmelden</button>
+
+<%- userData.local.email || 'nothing' %>
+
+<form action="/" method="post">
+  <input type="text" name="email">
+  <button type="submit">Submit</button>
+</form>

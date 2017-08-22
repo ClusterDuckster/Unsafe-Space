@@ -1,0 +1,15 @@
+<div class="box inputBox">
+    <form class="chatForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <button class="button" type="button" (click)="onClear(f)">X</button>
+        <input
+            name="content"
+            type="text"
+            id="message"
+            autocomplete="off"
+            placeholder="Type your message here"
+            autofocus
+            required
+            [ngModel]="shoutout?.content">
+        <button class="button" type="submit">Send</button>
+    </form>
+</div>
