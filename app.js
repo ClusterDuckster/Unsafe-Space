@@ -17,6 +17,7 @@ var flash    = require('connect-flash');
 var gameRoutes = require('./routes/game');
 var shoutoutRoutes = require('./routes/shoutouts');
 var startRoutes = require('./routes/startUp');
+var authRoutes = require('./routes/auth');
 var dbConfig = require('./assets/config/database');
 
 //connect database
@@ -46,6 +47,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/auth', authRoutes);
 app.use('/game', gameRoutes);
 app.use('/shoutout', shoutoutRoutes);
 app.use('/', startRoutes);

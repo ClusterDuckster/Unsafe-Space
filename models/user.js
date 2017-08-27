@@ -7,29 +7,12 @@ var bcrypt   = require('bcrypt-nodejs');
 // define the schema for our user model
 var userSchema = mongoose.Schema({
 
-    local            : {
-		username	 : String,
-        email        : String,
-        password     : String
-    },
-    facebook         : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    },
-    twitter          : {
-        id           : String,
-        token        : String,
-        displayName  : String,
-        username     : String
-    },
-    google           : {
-        id           : String,
-        token        : String,
-        email        : String,
-        name         : String
-    },
+	username	: {type: String, required: true, unique: true},
+    email       : {type: String, required: true},
+    password    : {type: String, required: true},
+
+    messages    : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
+
 	trivia			 : {
 		registered	 : { type: Date, default: Date.now },
         lastOnline   : Date,
@@ -47,7 +30,26 @@ var userSchema = mongoose.Schema({
 		defaultRoom	 : { type: String, default: 'default' },
 		chatColor	 : String
 	},
-    messages         : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }]
+
+    //Maybe using this some day
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    },
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
+    },
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    }
 });
 
 userSchema.plugin(mongooseUniqueValidator);
