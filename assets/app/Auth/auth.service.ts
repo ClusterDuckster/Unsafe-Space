@@ -27,4 +27,18 @@ export class AuthService {
             .catch((err: Response) => Promise.reject(err));
     }
 
+    signin(user: User){
+
+        const body = JSON.stringify(user);
+
+        return this.http.post(this.authUrl + '/signin', body, {headers: this.headers})
+            .toPromise()
+            .then((res: Response) => res.json())
+            .catch((err: Response) => Promise.reject(err));
+    }
+
+    logout(){
+        localStorage.clear();
+    }
+
 }

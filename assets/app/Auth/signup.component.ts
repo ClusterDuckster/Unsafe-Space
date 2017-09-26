@@ -27,12 +27,12 @@ export class SignupComponent implements OnInit {
     onSubmit() {
         const user = new User(
             this.signupForm.value.username,
-            this.signupForm.value.email,
-            this.signupForm.value.password
+            this.signupForm.value.password,
+            this.signupForm.value.email
         );
         this.authService.signup(user)
             .then( res => console.log(res) )
-            .catch( err => console.error(err._body) );
+            .catch( err => console.error(err) );
         this.signupForm.reset();
     }
 
