@@ -34,6 +34,7 @@ export class SigninComponent {
             .then(data => {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('userId', data.userId);
+                localStorage.setItem('username', data.username);
                 this.router.navigateByUrl('/');
             })
             .catch(err => console.error(err));

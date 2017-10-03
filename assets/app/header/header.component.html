@@ -1,0 +1,14 @@
+<header class="box header">
+    <div class="headerBlankSpace"></div>
+    <div class="centralHeader">
+        <h1>Unsafe Space</h1>
+        <nav class="headerButtons">
+            <a routerLinkActive="activeNav" class="button" [routerLink]="['/shoutouts']">ShoutOuts</a>
+            <a routerLinkActive="activeNav" class="button" [routerLink]="['/home']">Home</a>
+            <a routerLinkActive="activeNav" class="button" [routerLink]="['/auth']" *ngIf="!isLoggedIn()">Authentication</a>
+            <a routerLinkActive="activeNav" class="button" [routerLink]="['/profile']" *ngIf="isLoggedIn()">Profile</a>
+            <a class="button" (click)="onTest()">Test</a>
+        </nav>
+    </div>
+    <user-info class="user-info"></user-info>
+</header>

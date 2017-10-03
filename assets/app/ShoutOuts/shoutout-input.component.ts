@@ -32,10 +32,12 @@ export class ShoutOutInputComponent implements OnInit {
     onSubmit( form: NgForm ) {
         if(this.shoutout) {
             //Edit
-            this.shoutout.content = form.value.content;
             this.shoutoutService.updateShoutOut(this.shoutout)
                 .then(
-                    data => console.log(data)
+                    data => {
+                        this.shoutout.content = form.value.content;
+                        console.log(data);
+                    }
                 )
                 .catch(error => console.error(error));
             this.shoutout = null;

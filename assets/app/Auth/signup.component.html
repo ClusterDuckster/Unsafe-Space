@@ -12,5 +12,7 @@
         <label for="username">Password</label>
         <input type="password" id="password" formControlName="password">
     </div>
-    <button class="button" type="submit" [disabled]="!signupForm.valid">Submit</button>
+    <div class="authButtonWrapper">
+        <button class="button" type="submit" [disabled]="!signupForm.valid">Submit</button>        
+    </div>
 </form>

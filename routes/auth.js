@@ -43,6 +43,7 @@ router.post('/signin', function (req, res, next) {
             return res.status(200).json({
                 title: 'Successfully logged in',
                 token: token,
+                username: user.username,
                 userId: user._id
             });
         })

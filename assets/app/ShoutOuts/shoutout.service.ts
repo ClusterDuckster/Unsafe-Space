@@ -24,7 +24,10 @@ export class ShoutOutService {
 
     addShoutOut(shoutout: ShoutOut): Promise<ShoutOut> {
             const body = JSON.stringify(shoutout);
-            return this.http.post(this.shoutoutUrl, body, {headers: this.headers})
+            const token = localStorage.getItem('token')
+                ? '?token=' + localStorage.getItem('token')
+                : '';
+            return this.http.post(this.shoutoutUrl + token, body, {headers: this.headers})
                 .toPromise()
                 .then(res => {
                     const result = res.json();
@@ -62,7 +65,10 @@ export class ShoutOutService {
     }
 
     deleteShoutOut(shoutout: ShoutOut) {
-        return this.http.delete(this.shoutoutUrl + '/' + shoutout.shoutoutId, {headers: this.headers})
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.http.delete(this.shoutoutUrl + '/' + shoutout.shoutoutId + token, {headers: this.headers})
             .toPromise()
             .then(res => {
                 this.shoutouts.splice(this.shoutouts.indexOf(shoutout), 1);
@@ -77,7 +83,10 @@ export class ShoutOutService {
 
     updateShoutOut(shoutout: ShoutOut) {
         const body = JSON.stringify(shoutout);
-        return this.http.patch(this.shoutoutUrl + '/' + shoutout.shoutoutId, body, {headers: this.headers})
+        const token = localStorage.getItem('token')
+            ? '?token=' + localStorage.getItem('token')
+            : '';
+        return this.http.patch(this.shoutoutUrl + '/' + shoutout.shoutoutId + token, body, {headers: this.headers})
             .toPromise()
             .then(res => {
                 return res.json() as JSON;

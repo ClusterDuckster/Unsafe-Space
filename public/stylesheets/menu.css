@@ -23,6 +23,7 @@
     --text-color-passive: rgb(160,180,180);
 	--placeholder-color: rgb(60, 70, 68);
     --main-font: 300 24px Miso;
+
     --main-bg-color: rgb(38, 35, 45);
     --sec-bg-color: rgb(32, 48, 48);
     --third-bg-color: rgb(30, 40, 50);
@@ -30,18 +31,28 @@
     --third-bg-color-lighter: rgb(35, 60, 70);
     --fourth-bg-color: rgb(36, 42, 56);
     --fourth-bg-color-light: rgb(40, 52, 72);
+
     --button-color-passive: rgb(16, 80, 80);
     --button-color-active: rgb(32, 160, 160);
     --button-color-deactivated: rgb(100, 100, 100);
     --button-font-color-deactivated: rgb(140,140,140);
+
     --border-radius: 5px;
     --side-space: 50px;
     --main-margin: 5px;
     --main-padding: 5px;
-    --roomBox-width: 250px;
     --main-form-height: 1.8em;
+
+    --roomBox-width: 250px;
     --header-height: 120px;
     --roomEditBox-height: 120px;
+    --user-info-width: 280px;
+    --profilePic-size: 115px;
+    --auth-width: 450px;
+    --shoutouts-width: 700px;
+    --profile-width: 800px;
+
+    --default-avatar: url(http://localhost:3000/img/DummyAvatar.svg);
 }
 
 
@@ -89,6 +100,12 @@ input {
     border: 2px solid var(--button-color-passive);
     border-radius: 5px;
     padding-left: var(--main-padding);
+}
+
+my-app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
@@ -251,6 +268,11 @@ input {
     flex-direction: column;
 }
 
+.flexHorizontal {
+    display: flex;
+    flex-direction: row;
+}
+
 .flexFull {
     flex-grow: 1;
     height: 0px; /* for scrolling */
@@ -307,6 +329,12 @@ input {
 .form-group input {
     flex-grow: 1;
     border-color: var(--third-bg-color);
+}
+
+.authButtonWrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: var(--main-padding);
 }
 
 .chatForm {
@@ -401,6 +429,8 @@ input {
 /*---------------*/
 
 .header {
+    display: flex;
+    flex-flow: row nowrap;
     padding: 0.5em;
     background-color: var(--sec-bg-color);
     order: 1;
@@ -409,13 +439,54 @@ input {
     text-align: center;
 }
 
-.header h1 {
+.headerBlankSpace {
+    flex-shrink: 1;
+    width: var(--user-info-width);
+}
+
+.centralHeader {
+    flex-grow: 1;
+}
+
+.centralHeader h1 {
     margin-top: 0.15em;
     margin-bottom: 0.1em;
     font-size: 2.5em;
 }
 
-.header_buttons {
+.user-info {
+    min-width: var(--user-info-width);
+    margin-left: 20px;
+}
+
+.profilePic {
+    width: var(--profilePic-size);
+	height: var(--profilePic-size);
+	background: var(--main-bg-color);
+    background-image: var(--default-avatar);
+    background-size: var(--profilePic-size) var(--profilePic-size);
+	border-radius: calc(var(--profilePic-size)/2);
+    border-top-right-radius: 0px;
+    overflow: hidden;
+}
+
+.infoVertical {
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.username {
+    width: 100%;
+    line-height: 2em;
+    background: var(--main-bg-color);
+    text-align: left;
+}
+
+.logout {
+    text-align: right;
+}
+
+.headerButtons {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
@@ -453,9 +524,10 @@ input {
 }
 
 .shoutouts {
-    display: flex;
-    flex-direction: column;
+    align-self: center;
     height: 100%;
+    width: 100%;
+    max-width: var(--shoutouts-width);
 }
 
 .shoutoutList {
@@ -463,9 +535,31 @@ input {
 }
 
 .auth-container {
+    max-width: var(--auth-width);
     flex-basis: 30%;
     flex-grow: 3;
     background-color: var(--main-bg-color);
+}
+
+.authContent {
+    align-self: center;
+    width: 100%;
+    max-width: var(--auth-width);
+}
+
+.profile {
+    align-self: center;
+    height: 100%;
+    width: 100%;
+    max-width: var(--profile-width);
+}
+
+.profileContent {
+    background-color: var(--third-bg-color);
+}
+
+.profileRow {
+    justify-content: space-between;
 }
 
 

@@ -52,6 +52,7 @@ export class ShoutOutComponent {
 
     onDelete() {
         this.shoutoutService.deleteShoutOut(this.shoutout)
-            .then(res => console.log(res));
+            .then(res => console.log(res))
+            .catch(err => console.error(err));
     }
 }

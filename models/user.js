@@ -11,7 +11,7 @@ var userSchema = mongoose.Schema({
     email       : {type: String, required: true},
     password    : {type: String, required: true},
 
-    messages    : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
+    shoutouts    : [{ type: mongoose.Schema.Types.ObjectId, ref: 'Shoutout' }],
 
 	trivia			 : {
 		registered	 : { type: Date, default: Date.now },
@@ -19,7 +19,7 @@ var userSchema = mongoose.Schema({
 		country		 : String,
 		online		 : Boolean,
 		curRoom		 : String,
-        info         : String
+        info         : { type: String, default: 'Hier könnte ihre Benutzerinfo stehen!'}
 	},
 	stats			 : {
 		wins		 : Number,

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
- @Injectable()
+@Injectable()
 
 export class AuthService {
 
@@ -39,6 +39,15 @@ export class AuthService {
 
     logout(){
         localStorage.clear();
+    }
+
+    isLoggedIn() {
+        return localStorage.getItem('token') !== null;
+    }
+
+    getUsername() {
+        console.log(localStorage.getItem('username'));
+        return localStorage.getItem('username');
     }
 
 }

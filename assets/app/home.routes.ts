@@ -6,6 +6,5 @@ import { LogoutComponent } from "./Auth/logout.component";
 export const HOME_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
     { path: 'signin', component: SigninComponent },
-    { path: 'signup', component: SignupComponent },
-    { path: 'logout', component: LogoutComponent }
+    { path: 'signup', component: SignupComponent }
 ]
