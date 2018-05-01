@@ -2,8 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ReactiveFormsModule } from "@angular/forms";
 
-import { chatRouting } from "./chat.routes";
-
 import { ChatComponent } from "./chat.component";
 import { ChatMessagesComponent } from "./chat-messages.component";
 import { ChatRoomComponent } from "./chat-room.component";
@@ -30,7 +28,6 @@ import { GameListService } from "./game-list.service";
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        chatRouting
     ]
 })
 

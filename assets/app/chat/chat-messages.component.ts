@@ -18,7 +18,6 @@ export class ChatMessagesComponent implements OnInit{
     constructor(private chatService: ChatService){}
 
     ngOnInit() {
-        this.chatService.serviceListenToChat();
         // Let the chatService save chatMessages,
         // so they are preserved when switching components
 

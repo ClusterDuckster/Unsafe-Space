@@ -1,5 +1,6 @@
 <div class="box curRoom">
-    {{chatService.curRoom}}
+    <i *ngIf="!chatService.curRoom">Connecting...</i>
+    <i *ngIf="chatService.curRoom">{{chatService.curRoom}}</i>
 </div>
 <form class="inputForm" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
     <input

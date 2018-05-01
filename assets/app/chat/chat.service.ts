@@ -29,19 +29,20 @@ export class ChatService {
     init() {
         if(!this.initialized) {
             //Connect to namespace 'chat'
-            this.websocketService.connect('chat');
-            //Initialize Rx Subjects
-            this.observeMessages();
-            this.observeRoomChanges();
-            this.observeRoomJoins();
-            this.observeRoomLeaves();
-            this.initialized = true;
+            if(this.websocketService.connect('chat')){
+                //Initialize Rx Subjects
+                this.observeMessages();
+                this.observeRoomChanges();
+                this.observeRoomJoins();
+                this.observeRoomLeaves();
+                this.initialized = true;
+            }
         }
     }
 
     initServiceListening(room:string) {
         if(!this.serviceListeningInitialized) {
-            //this.serviceListenToChat();
+            this.serviceListenToChat();
             this.serviceListenToRoomJoin();
             this.serviceListenToRoomLeave();
             this.serviceListenToRoomChange();

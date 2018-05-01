@@ -19,7 +19,7 @@ export class WebsocketService {
 
     constructor(private errorService:ErrorService) {}
 
-    connect(namespace:string): void {
+    connect(namespace:string): boolean {
         //If namespaces not equal or no socket exists: create new socket
         if( this.socket ?
             this.socket.nsp.substring(1) !== namespace :
@@ -35,6 +35,9 @@ export class WebsocketService {
                 this.errorService.handleError(JSON.parse(err));
                 throw new Error(err);
             });
+            return true;
+        } else {
+            return false;
         }
     }
 
