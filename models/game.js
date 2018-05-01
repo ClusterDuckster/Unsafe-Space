@@ -7,11 +7,11 @@ var gameSchema = mongoose.Schema({
 
 	name: String,
 
-	started: { type: Boolean, default: false },
 	createdOn: { type: Date, defailt: Date.now },
+	started: { type: Boolean, default: false },
 	startedOn: Date,
 
-  players: { type: Array, default: [] },
+	players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 	maxPlayers: Number,
 
 	settings: {

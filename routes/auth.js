@@ -44,7 +44,9 @@ router.post('/signin', function (req, res, next) {
                 title: 'Successfully logged in',
                 token: token,
                 username: user.username,
-                userId: user._id
+                userId: user._id,
+                curRoom: user.data.curRoom,
+                defRoom: user.settings.defaultRoom
             });
         })
         .catch(function(error){

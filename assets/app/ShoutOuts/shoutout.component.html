@@ -10,7 +10,7 @@
         <div class="ShoutOutAuthor">
             {{ shoutout.author }}
         </div>
-        <div class="ShoutOutButtons">
+        <div *ngIf="belongsToUser()" class="ShoutOutButtons">
             <a (click)="onEdit()">Edit</a>
             <a (click)="onDelete()">Delete</a>
         </div>

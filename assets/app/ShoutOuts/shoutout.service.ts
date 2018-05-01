@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
+import { ErrorService } from "../error/error.service";
+
 import { ShoutOut } from "./shoutout.model";
 
 @Injectable ()
@@ -15,9 +17,14 @@ export class ShoutOutService {
     shoutoutIsEdit = new EventEmitter<ShoutOut>();
 
     private headers = new Headers({'Content-Type': 'application/json'});
-    private shoutoutUrl = 'http://localhost:3000/shoutout';
+    private shoutoutUrl =
+        window.location.protocol +
+        '//' +
+        window.location.host +
+        '/shoutout';
+    // private shoutoutUrl = 'http://localhost:3000/shoutout';
 
-    constructor(private http: Http) {}
+    constructor(private http: Http, private errorService:ErrorService) {}
 
     //Promises for getting one package back
     //Observables for getting back a stream or request-cancel-new-request sequences
@@ -31,11 +38,19 @@ export class ShoutOutService {
                 .toPromise()
                 .then(res => {
                     const result = res.json();
-                    const newShoutout = new ShoutOut(result.object.content, 'Dummy', result.object._id, null);
+                    const newShoutout = new ShoutOut(
+                        result.object.content,
+                        result.object.user.username,
+                        result.object._id,
+                        result.object.user._id
+                    );
                     this.shoutouts.unshift(newShoutout);
                     return newShoutout;
                 })
-                .catch(error => Promise.reject(error.json()));
+                .catch((error) => {
+                    this.errorService.handleError(error.json());
+                    return Promise.reject(error.json());
+                });
     }
 
     //Observable example:
@@ -56,12 +71,20 @@ export class ShoutOutService {
                 let transformedShoutouts: ShoutOut[] = [];
                 for (let shoutout of shoutouts) {
                     //unshift to put the latest shoutouts to the top
-                    transformedShoutouts.unshift(new ShoutOut(shoutout.content, 'Dummy', shoutout._id, null ));
+                    transformedShoutouts.unshift(new ShoutOut(
+                        shoutout.content,
+                        shoutout.user.username,
+                        shoutout._id,
+                        shoutout.user._id
+                    ));
                 }
                 this.shoutouts = transformedShoutouts;
                 return transformedShoutouts;
             })
-            .catch(error => Observable.throw(error.json()));
+            .catch((error) => {
+                this.errorService.handleError(error.json());
+                return Observable.throw(error.json());
+            });
     }
 
     deleteShoutOut(shoutout: ShoutOut) {
@@ -74,7 +97,10 @@ export class ShoutOutService {
                 this.shoutouts.splice(this.shoutouts.indexOf(shoutout), 1);
                 return res.json() as JSON;
             })
-            .catch(error => Promise.reject(error.json()));
+            .catch((error) => {
+                this.errorService.handleError(error.json());
+                return Promise.reject(error.json());
+            });
     }
 
     editShoutOut(shoutout: ShoutOut) {
@@ -91,7 +117,10 @@ export class ShoutOutService {
             .then(res => {
                 return res.json() as JSON;
             })
-            .catch(error => Promise.reject(error.json()));
+            .catch((error) => {
+                this.errorService.handleError(error.json());
+                return Promise.reject(error.json());
+            });
     }
 
 }

@@ -1,0 +1,23 @@
+<div class="box curRoom">
+    {{chatService.curRoom}}
+</div>
+<form class="inputForm" [formGroup]="roomForm" (ngSubmit)="onSubmit()">
+    <input
+        autofocus
+        type="text"
+        formControlName="room"
+        autocomplete="off"
+        #roomInput
+        >
+    <button class="button">Join</button>
+</form>
+<div class="box">
+    Users in Room
+</div>
+<div class="flexVertical flexFull scrollable box usersInRoom">
+    <ul>
+        <li *ngFor="let user of chatService.usersInRoom" class="box chatRoomUser">
+            {{user.username}}
+        </li>
+    </ul>
+</div>

@@ -1,15 +1,20 @@
-<div class="box inputBox">
-    <form class="chatForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+<div class="box">
+    <form class="inputForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
         <button class="button" type="button" (click)="onClear(f)">X</button>
         <input
+            autofocus
             name="content"
             type="text"
             id="message"
             autocomplete="off"
             placeholder="Type your message here"
-            autofocus
             required
-            [ngModel]="shoutout?.content">
-        <button class="button" type="submit">Send</button>
+            [ngModel]="shoutout?.content"
+            #shoutoutInput>
+        <button class="button" type="submit">
+            <div *ngIf="shoutout; then edit else send"></div>
+            <ng-template #send>Send</ng-template>
+            <ng-template #edit>Update</ng-template>
+        </button>
     </form>
 </div>

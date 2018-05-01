@@ -1,9 +1,14 @@
 <div class="flexHorizontal">
     <div class="profilePic"></div>
     <div class="flexVertical infoVertical">
-        <div class="username">{{name}}</div>
+        <div class="username">{{getUsername()}}</div>
         <div class="logout" *ngIf="isLoggedIn()">
-            <app-logout></app-logout>
+            <button
+                class="button"
+                (click)="onLogout()"
+            >
+                Logout
+            </button>
         </div>
     </div>
 </div>

@@ -14,7 +14,15 @@ export class UserInfoComponent implements OnChanges{
     constructor(private authService: AuthService) {}
 
     ngOnChanges() {
-        console.log('this.authService.getUsername');
+        console.log('change');
+    }
+
+    onLogout() {
+        this.authService.logout('/home');
+    }
+
+    getUsername() {
+        return this.authService.getUsername() || 'Anonymous';
     }
 
     isLoggedIn() {

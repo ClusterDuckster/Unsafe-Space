@@ -1,0 +1,13 @@
+<div class="modal" [ngStyle]="{ 'display': display }">
+    <div class="box modalContent">
+        <div class="flexHorizontal">
+            <h2 class="flexFull">{{error?.title}}</h2>
+            <div class="flexVertical">
+                <i class="button" (click)="onClose()">Close</i>
+            </div>
+        </div>
+        <div class="errorBody">
+            {{error?.msg}}
+        </div>
+    </div>
+</div>

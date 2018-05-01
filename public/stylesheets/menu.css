@@ -37,13 +37,15 @@
     --button-color-deactivated: rgb(100, 100, 100);
     --button-font-color-deactivated: rgb(140,140,140);
 
+    --chatMessage-odd-bg-color: rgb(60,60,60);
+
     --border-radius: 5px;
     --side-space: 50px;
     --main-margin: 5px;
     --main-padding: 5px;
     --main-form-height: 1.8em;
 
-    --roomBox-width: 250px;
+    --roomBox-width: 350px;
     --header-height: 120px;
     --roomEditBox-height: 120px;
     --user-info-width: 280px;
@@ -51,6 +53,7 @@
     --auth-width: 450px;
     --shoutouts-width: 700px;
     --profile-width: 800px;
+    --error-width: 650px;
 
     --default-avatar: url(http://localhost:3000/img/DummyAvatar.svg);
 }
@@ -82,6 +85,17 @@ html, body {
 a {
     color: white;
     text-decoration: none;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+li {
+    padding: 5px;
 }
 
 h2 {
@@ -108,174 +122,33 @@ my-app {
     justify-content: center;
 }
 
-
-/* The flex container */
-
-#flexBox {
-    display: flex;
-    flex-flow: wrap;
-    height: 100%;
-}
-
-#header_buttons button {
-    width: 80px;
-    height: var(--main-form-height);
-}
-
-#main_header {
-    width: 100%;
-    margin-left: calc(var(--main-margin)*2);
-}
-
-#chatBox {
-    background-color: none;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    height: calc(100% - var(--main-margin)*6 - var(--main-form-height));
-}
-
-#messageBox {
-    order: 3;
-    flex: 1;
-    height: 100%;
-}
-
-#chat_messages {
-		flex: 1;
-    background: var(--third-bg-color);
-    height: calc(100% - var(--main-margin)*9 - var(--main-form-height));
-    overflow-y: scroll;
-    list-style-type: none;
-}
-
-#chat_messages li {
-    border-radius: 5px;
-    padding: 5px 10px;
-    margin: 2px;
-    word-break: break-all;
-}
-
-#chat_messages li:nth-child(odd) {
-    background: rgb(48, 48, 48);
-}
-
-#roomBox {
-    order: 4;
-    flex: 0 1 200px;
-    height: calc(100%);
-}
-
-#usersBox {
-    /*background-color: #12a471;*/
-    background-color: var(--third-bg-color);
-    height: calc(100% - var(--roomEditBox-height) - var(--main-margin)*8);
-}
-
-#chat_users {
-    background-color: rgb (230, 230, 230);
-    overflow-y: scroll;
-    list-style-type: none;
-}
-
-#roomEditBox {
-    background-color: var(--third-bg-color);
-    height: var(--roomEditBox-height);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#roomHeader {
-    margin-bottom: calc(var(--main-margin)*3);
-    margin-top: calc(var(--main-margin)*3);
-    margin-left: var(--main-margin);
-}
-
-#roomForm {
-    display: flex;
-    height: var(--main-form-height);
-}
-
-#roomForm input {
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
-    font: var(--main-font);
-    flex-basis: 100%;
-    border: 2px solid var(--button-color-passive);
-    border-radius: 5px;
-    margin: var(--main-margin);
-		padding-left: var(--main-padding);
-}
-
-#roomForm input:focus {
-    outline: 0;
-    border-color: var(--button-color-active);
-    /* 		box-shadow: 0 0 3px 1px var(--button-color-passive);		*/
-}
-
-#roomForm button {
-    padding-top: 2px;
-    flex-basis: 60px;
-}
-
-#side_header {
-    width: 100%;
-    margin-left: calc(var(--main-margin)*2);
-    margin-bottom: calc(var(--main-margin)*3);
-}
-
-#gameBox {
-    height: calc(100% - var(--main-margin)*8 - var(--main-form-height));
-}
-
-#gameList {
-    background: var(--third-bg-color);
-    height: calc(100% - var(--main-margin)*9 - var(--main-form-height));
-    list-style-type: none;
-}
-
-#lobbyContent {
-	display: flex;
-	flex-direction: column;
-	height: calc(100% - var(--main-margin)*6 - var(--main-form-height));
-}
-
-#playerBox {
-	order: 2;
-	flex: 2 1 auto;
-}
-
-#playerList {
-	list-style: none;
-}
-
-#lobbyChat {
-	order: 3;
-	flex: 2 1 100%;
-	display: flex;
-	flex-direction: column;
-}
-
 /*--------------*/
 /* GLOBAL STUFF */
 /*--------------*/
 
-
-
 .flexVertical {
     display: flex;
     flex-direction: column;
+    /* firefox scrolling */
+    min-height: 0;
 }
 
 .flexHorizontal {
     display: flex;
     flex-direction: row;
+    /* firefox scrolling */
+    min-height: 0;
 }
 
 .flexFull {
     flex-grow: 1;
-    height: 0px; /* for scrolling */
+    /* firefox scrolling */
+    min-height: 0;
+}
+
+.scrollable {
+    overflow-y: auto;
+    min-height: 0;
 }
 
 .button {
@@ -331,40 +204,49 @@ my-app {
     border-color: var(--third-bg-color);
 }
 
-.authButtonWrapper {
-    display: flex;
-    flex-direction: row-reverse;
-    padding: var(--main-padding);
-}
-
-.chatForm {
+.inputForm {
     display: flex;
     height: var(--main-form-height);
 }
 
-.chatForm input {
+.inputForm input {
     flex-basis: 100%;
     margin: var(--main-margin);
 }
 
-.chatForm input:focus {
+.inputForm input:focus {
     outline: 0;
     border-color: var(--button-color-active);
     /* 		box-shadow: 0 0 3px 1px var(--button-color-passive);		*/
 }
 
-.chatForm .ng-touched.ng-invalid {
+.inputForm .ng-touched.ng-invalid {
     border-color: var(--button-color-passive);
 }
 
-.chatForm.ng-invalid .button {
+.inputForm.ng-invalid .button {
     color: var(--button-font-color-deactivated);
     background-color: var(--button-color-deactivated);
     border-color: var(--button-color-deactivated);
 }
 
-.chatForm.ng-invalid .button:hover {
+.inputForm.ng-invalid .button:hover {
     cursor: not-allowed;
+}
+
+
+.tabContent {
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    background-color: var(--third-bg-color-light);
+    margin: var(--main-margin);
+    margin-top: 0px;
+}
+
+.authButtonWrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: var(--main-padding);
 }
 
 .tabs {
@@ -413,7 +295,7 @@ my-app {
 }
 
 .tabs li.activeTab:hover {
-    background-color: var(--third-bg-color-lighter);
+    /* background-color: var(--third-bg-color-lighter); */
     border-color: var(--third-bg-color-lighter);
     border-bottom-color: var(--third-bg-color-light);
     outline-style: none;
@@ -502,13 +384,8 @@ my-app {
 }
 
 .homeContent {
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
     padding: 15px;
     padding-top: 25px;
-    margin: var(--main-margin);
-    margin-top: 0px;
-    background-color: var(--third-bg-color-light);
 }
 
 .home {
@@ -555,13 +432,65 @@ my-app {
 }
 
 .profileContent {
-    background-color: var(--third-bg-color);
+    background-color: var(--third-bg-color-light);
 }
 
 .profileRow {
     justify-content: space-between;
 }
 
+.chat {
+    background-color: var(--sec-bg-color);
+}
+
+.chatContent {
+    background-color: var(--main-bg-color);
+}
+
+.chatMessage {
+    list-style-type: none;
+}
+
+.chatMessage:nth-child(odd){
+    background-color: var(--chatMessage-odd-bg-color);
+}
+
+.chatRoom {
+    /* background-color: var(--main-bg-color); */
+}
+
+.curRoom {
+    background-color: var(--third-bg-color);
+    text-align: center;
+}
+
+.usersInRoom {
+    background-color: var(--third-bg-color);
+}
+
+.chatRoomUser {
+    background-color: var(--fourth-bg-color);
+    border: 2px solid var(--fourth-bg-color-light);
+}
+
+.chatSide {
+    background-color: var(--main-bg-color);
+    min-width: var(--roomBox-width);
+}
+
+.gameList {
+    background-color: var(--third-bg-color);
+}
+
+.gameListElement {
+    overflow-y: hidden;
+    cursor: pointer;
+    background-color: var(--fourth-bg-color);
+}
+
+.gameListElementInfo {
+    opacity: 0;
+}
 
 
 /*-------------*/
@@ -603,4 +532,150 @@ my-app {
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color: var(--placeholder-color);
+}
+
+#flexBox {
+    display: flex;
+    flex-flow: wrap;
+    height: 100%;
+}
+
+#header_buttons button {
+    width: 80px;
+    height: var(--main-form-height);
+}
+
+#main_header {
+    width: 100%;
+    margin-left: calc(var(--main-margin)*2);
+}
+
+#chatBox {
+    background-color: none;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    height: calc(100% - var(--main-margin)*6 - var(--main-form-height));
+}
+
+#messageBox {
+    order: 3;
+    flex: 1;
+    height: 100%;
+}
+
+#chat_messages {
+    flex: 1;
+    background: var(--third-bg-color);
+    height: calc(100% - var(--main-margin)*9 - var(--main-form-height));
+    overflow-y: scroll;
+    list-style-type: none;
+}
+
+#chat_messages li {
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin: 2px;
+    word-break: break-all;
+}
+
+#chat_messages li:nth-child(odd) {
+    background: rgb(48, 48, 48);
+}
+
+#roomBox {
+    order: 4;
+    flex: 0 1 200px;
+    height: calc(100%);
+}
+
+#usersBox {
+    /*background-color: #12a471;*/
+    background-color: var(--third-bg-color);
+    height: calc(100% - var(--roomEditBox-height) - var(--main-margin)*8);
+}
+
+#chat_users {
+    background-color: rgb (230, 230, 230);
+    overflow-y: scroll;
+    list-style-type: none;
+}
+
+#roomEditBox {
+    background-color: var(--third-bg-color);
+    height: var(--roomEditBox-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#roomHeader {
+    margin-bottom: calc(var(--main-margin)*3);
+    margin-top: calc(var(--main-margin)*3);
+    margin-left: var(--main-margin);
+}
+
+#roomForm {
+    display: flex;
+    height: var(--main-form-height);
+}
+
+#roomForm input {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    font: var(--main-font);
+    flex-basis: 100%;
+    border: 2px solid var(--button-color-passive);
+    border-radius: 5px;
+    margin: var(--main-margin);
+    padding-left: var(--main-padding);
+}
+
+#roomForm input:focus {
+    outline: 0;
+    border-color: var(--button-color-active);
+    /* 		box-shadow: 0 0 3px 1px var(--button-color-passive);		*/
+}
+
+#roomForm button {
+    padding-top: 2px;
+    flex-basis: 60px;
+}
+
+#side_header {
+    width: 100%;
+    margin-left: calc(var(--main-margin)*2);
+    margin-bottom: calc(var(--main-margin)*3);
+}
+
+#gameBox {
+    height: calc(100% - var(--main-margin)*8 - var(--main-form-height));
+}
+
+#gameList {
+    background: var(--third-bg-color);
+    height: calc(100% - var(--main-margin)*9 - var(--main-form-height));
+    list-style-type: none;
+}
+
+#lobbyContent {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - var(--main-margin)*6 - var(--main-form-height));
+}
+
+#playerBox {
+    order: 2;
+    flex: 2 1 auto;
+}
+
+#playerList {
+    list-style: none;
+}
+
+#lobbyChat {
+    order: 3;
+    flex: 2 1 100%;
+    display: flex;
+    flex-direction: column;
 }

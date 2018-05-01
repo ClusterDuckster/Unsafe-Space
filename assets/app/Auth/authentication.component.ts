@@ -12,7 +12,7 @@ import { Component } from "@angular/core";
                 <li routerLinkActive="activeTab" [routerLink]="['signin']">Signin</li>
                 <li routerLinkActive="activeTab" [routerLink]="['signup']">Signup</li>
             </ul>
-            <div class="homeContent flexFull flexVertical">
+            <div class="tabContent homeContent flexFull flexVertical">
                 <router-outlet></router-outlet>
             </div>
         </div>

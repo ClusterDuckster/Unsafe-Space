@@ -35,8 +35,8 @@ import { ShoutOutService } from "./shoutout.service";
         }
 
         .ShoutOutButtons a {
-            padding-left: 10px;
-            color: rgb(230,250,255);
+            margin-left: 10px;
+            color: rgb(120,190,240);
         }
     `]
 })
@@ -55,4 +55,9 @@ export class ShoutOutComponent {
             .then(res => console.log(res))
             .catch(err => console.error(err));
     }
+
+    belongsToUser() {
+        return localStorage.getItem('userId') == this.shoutout.userId;
+    }
+
 }

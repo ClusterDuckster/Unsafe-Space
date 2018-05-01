@@ -1,0 +1,10 @@
+<form class="inputForm" [formGroup]="chatMessageForm" (ngSubmit)="onSubmit()">
+    <input
+        autofocus
+        type="text"
+        formControlName="message"
+        autocomplete="off"
+        #chatInput
+        >
+    <button class="button">Send</button>
+</form>

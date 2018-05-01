@@ -18,7 +18,6 @@ var userSchema = mongoose.Schema({
         lastOnline   : Date,
 		country		 : String,
 		online		 : Boolean,
-		curRoom		 : String,
         info         : { type: String, default: 'Hier könnte ihre Benutzerinfo stehen!'}
 	},
 	stats			 : {
@@ -29,6 +28,9 @@ var userSchema = mongoose.Schema({
 	settings		 : {
 		defaultRoom	 : { type: String, default: 'default' },
 		chatColor	 : String
+	},
+	data 			 : {
+		curRoom		 : String
 	},
 
     //Maybe using this some day

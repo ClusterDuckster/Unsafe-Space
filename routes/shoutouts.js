@@ -7,7 +7,9 @@ var ShoutOut = require('../models/shoutout')
 var User = require('../models/user')
 
 router.get('/', function (req, res, next) {
-    ShoutOut.find().exec()
+    ShoutOut.find()
+        .populate('user', 'username')
+        .exec()
         .then(function(shoutouts) {
             return res.status(200).json({
                 message: 'found shoutouts',
@@ -39,31 +41,31 @@ router.use('/', function(req, res, next) {
 router.post('/', function (req, res, next) {
     var decoded = jwt.decode(req.query.token);
     User.findById(decoded.user._id)
-        .then(function(user) {
+        .then(user => {
             var shoutout = new ShoutOut ({
                 content: req.body.content,
                 user: user
             });
             shoutout.save()
-            .then(function(result){
-                user.shoutouts.push(result);
-                user.save();
-                res.status(201).json({
-                    message: 'added shoutout',
-                    object: result
+                .then(result => {
+                    user.shoutouts.push(result);
+                    user.save();
+                    res.status(201).json({
+                        message: 'added shoutout',
+                        object: result
+                    });
+                })
+                .catch(err => {
+                    return res.status(500).json({
+                        title: 'An error occured while posting',
+                        error: err.toString()
+                    });
                 });
-            })
-            .catch(function(err){
-                return res.status(500).json({
-                    title: 'An error occured while posting',
-                    error: err
-                });
-            });
         })
-        .catch(function(err){
+        .catch(err => {
             return res.status(500).json({
                 title: 'An error occured while posting',
-                error: err
+                error: err.toString()
             });
         });
 });
@@ -106,12 +108,12 @@ router.patch('/:id', function (req, res, next) {
         }
         shoutout.content = req.body.content;
         return shoutout.save()
-    })
-    .then(function(result){
-        return res.status(200).json({
-            message: 'updated shoutout',
-            object: result
-        });
+        .then(function(result){
+            return res.status(200).json({
+                message: 'updated shoutout',
+                object: result
+            });
+        })
     })
     .catch(function(error){
         return res.status(500).json({

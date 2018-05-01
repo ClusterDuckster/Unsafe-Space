@@ -1,0 +1,32 @@
+<button (click)="onClick()" class="button" type="button" name="button">GetGames</button>
+
+<div class="flexVertical flexFull box gameList">
+    <ul>
+        <li *ngFor="let game of gameListService.gameList"
+            (click)="onSelect(game)"
+            class="box gameListElement">
+            {{ game.name }} <br>
+            <div    [@listElementState]="game.state"
+                    class="flexVertical gameListElementInfo"
+            >
+                Hier kommt die game Info hin yeaah
+                <br>
+                und der join button whooohoo
+                <br>
+                Platzhalter hält den Platz
+                <button class="button" (click)="joinSelectedGame($event)">Join</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<form class="inputForm" [formGroup]="createGameForm" (ngSubmit)="createGame()">
+    <input
+        autofocus
+        type="text"
+        formControlName="gameName"
+        autocomplete="off"
+        #gameInput
+        >
+    <button class="button">Create</button>
+</form>

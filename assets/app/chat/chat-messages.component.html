@@ -1,0 +1,8 @@
+<h3>ChatMessages</h3>
+<div class="chatMessages flexFull flexVertical scrollable">
+    <ul>
+        <li *ngFor="let chatMessage of chatService.chatMessages" class="box chatMessage">
+            {{chatMessage.username}}: {{chatMessage.message}}
+        </li>
+    </ul>
+</div>

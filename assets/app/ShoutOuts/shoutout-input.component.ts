@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from "@angular/core";
 import { NgForm } from "@angular/forms";
 
 import { ShoutOutService } from "./shoutout.service";
@@ -15,8 +15,9 @@ import { ShoutOut } from "./shoutout.model";
     `]
 })
 
-export class ShoutOutInputComponent implements OnInit {
+export class ShoutOutInputComponent implements OnInit, AfterViewInit {
 
+    @ViewChild("shoutoutInput") shoutoutInput: ElementRef;
     shoutout: ShoutOut;
 
     constructor(private shoutoutService: ShoutOutService){}
@@ -29,18 +30,30 @@ export class ShoutOutInputComponent implements OnInit {
         );
     }
 
+    ngAfterViewInit(): void {
+        this.shoutoutInput.nativeElement.focus();
+    }
+
     onSubmit( form: NgForm ) {
         if(this.shoutout) {
             //Edit
-            this.shoutoutService.updateShoutOut(this.shoutout)
+            //Shallow copy of shoutout Object
+            let updatedShoutout = Object.assign({}, this.shoutout);
+            updatedShoutout.content = form.value.content;
+            this.shoutoutService.updateShoutOut(updatedShoutout)
                 .then(
                     data => {
-                        this.shoutout.content = form.value.content;
+                        this.shoutout.content = updatedShoutout.content;
                         console.log(data);
+                        this.shoutout = null;
                     }
                 )
-                .catch(error => console.error(error));
-            this.shoutout = null;
+                .catch(
+                    error => {
+                        console.error(error);
+                        this.shoutout = null;
+                    }
+                );
         } else {
             //Create
             const shoutout = new ShoutOut(form.value.content, 'Olli');
