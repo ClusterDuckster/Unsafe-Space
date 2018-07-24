@@ -33,7 +33,9 @@ export class WebsocketService {
             );
             this.socket.on('error', (err) => {
                 this.errorService.handleError(JSON.parse(err));
-                throw new Error(err);
+            });
+            this.socket.on('customError', (err) => {
+                this.errorService.handleAnyError(JSON.parse(err));
             });
             return true;
         } else {

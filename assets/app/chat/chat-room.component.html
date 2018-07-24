@@ -17,8 +17,11 @@
 </div>
 <div class="flexVertical flexFull scrollable box usersInRoom">
     <ul>
-        <li *ngFor="let user of chatService.usersInRoom" class="box chatRoomUser">
-            {{user.username}}
+        <li *ngFor="let user of chatService.usersInRoom" class="box flexHorizontal chatRoomUser">
+            <div class="chatRoomUserName">
+                {{user.username}}
+            </div>
+            <a class="button infoButton" routerLink="/profile/{{user.id}}">i</a>
         </li>
     </ul>
 </div>

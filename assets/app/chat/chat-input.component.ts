@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, ElementRef, OnInit, AfterViewInit, Input } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { AuthService } from "../Auth/auth.service";
@@ -14,6 +14,8 @@ import { ChatMessage } from "./chatMessage.model";
 })
 
 export class ChatInputComponent implements OnInit, AfterViewInit {
+
+    @Input() chatId:string;
 
     @ViewChild('chatInput') chatInput:ElementRef;
     chatMessageForm: FormGroup;
@@ -36,7 +38,8 @@ export class ChatInputComponent implements OnInit, AfterViewInit {
     onSubmit() {
         let msg:ChatMessage = new ChatMessage(
             this.chatMessageForm.value.message,
-            this.authService.getUsername()
+            this.authService.getUsername(),
+            this.chatId
         );
         this.chatService.sendMessage(msg);
         this.chatMessageForm.reset();

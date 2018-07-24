@@ -15,9 +15,13 @@ export class ChatService {
     roomJoinSubject: Subject<any>;
     roomLeaveSubject: Subject<any>;
 
+    //Chatrooms
     chatMessages: Array<ChatMessage> = [];
     curRoom: string;
     usersInRoom: Array<User> = [];
+
+    //Lobby Chat
+    lobbyChatMessages: Array<ChatMessage> = [];
 
     initialized:boolean = false;
     serviceListeningInitialized:boolean = false;
@@ -26,6 +30,7 @@ export class ChatService {
         private websocketService:WebsocketService,
     ){}
 
+    //Initializing the rx Subjects
     init() {
         if(!this.initialized) {
             //Connect to namespace 'chat'
@@ -40,13 +45,13 @@ export class ChatService {
         }
     }
 
-    initServiceListening(room:string) {
+    //let the Service listen to its own subjects
+    initServiceListening() {
         if(!this.serviceListeningInitialized) {
             this.serviceListenToChat();
             this.serviceListenToRoomJoin();
             this.serviceListenToRoomLeave();
             this.serviceListenToRoomChange();
-            this.changeRoom(room);
             this.serviceListeningInitialized = true;
         }
     }
@@ -61,7 +66,14 @@ export class ChatService {
 
     serviceListenToChat() {
         this.chatMessageSubject.subscribe( (msg) => {
-            this.chatMessages.push(msg);
+            switch(msg.chatId) {
+                case "chat": {
+                    this.chatMessages.push(msg);
+                }
+                case "lobby": {
+                    this.lobbyChatMessages.push(msg);
+                }
+            }
         });
     }
 
@@ -70,6 +82,10 @@ export class ChatService {
             var roomInfo = JSON.parse(data);
             this.curRoom = roomInfo.room;
             this.usersInRoom = roomInfo.usersInRoom;
+            //Update localStorage userdata
+            var userdata = JSON.parse(localStorage.getItem('userdata'));
+            userdata.curRoom = this.curRoom;
+            localStorage.setItem('userdata', JSON.stringify(userdata));
         });
     }
 
@@ -88,16 +104,15 @@ export class ChatService {
 
     sendMessage(message:ChatMessage) {
         this.websocketService.sendSocketEvent('chatMessage', message);
-        //console.log('send message!');
-        //console.log(message);
     }
 
     changeRoom(room:string) {
         this.websocketService.sendSocketEvent('changeRoom', room);
-        //console.log('changing room');
     }
 
-
+    joinLobbyChat(id:string) {
+        this.websocketService.sendSocketEvent('joinLobbyChat', id);
+    }
 
     //===================================
     // Initializing Rx Subjects =========

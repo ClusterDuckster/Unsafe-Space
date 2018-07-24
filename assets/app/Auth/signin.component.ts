@@ -32,11 +32,6 @@ export class SigninComponent {
         }
         this.authService.signin(user)
             .then(data => {
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('userId', data.userId);
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('curRoom', data.curRoom);
-                localStorage.setItem('defRoom', data.defRoom);
                 this.router.navigateByUrl('/');
             })
             .catch(err => console.error(err));

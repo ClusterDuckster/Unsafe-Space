@@ -11,7 +11,8 @@ import { ShoutOutService } from "./shoutout.service";
     template: `
         <ShoutOut
             [shoutout]="shoutout"
-            *ngFor="let shoutout of this.shoutoutService.shoutouts"></ShoutOut>
+            *ngFor="let shoutout of this.shoutoutService.shoutouts">
+        </ShoutOut>
 
     `
 })

@@ -48,8 +48,8 @@ app.use(function (req, res, next) {
 });
 
 app.use('/auth', authRoutes);
-app.use('/game', gameRoutes);
 app.use('/shoutout', shoutoutRoutes);
+app.use('/game', gameRoutes);
 app.use('/', startRoutes);
 
 // catch 404 and forward to error handler

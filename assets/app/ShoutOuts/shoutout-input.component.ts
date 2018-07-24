@@ -56,7 +56,7 @@ export class ShoutOutInputComponent implements OnInit, AfterViewInit {
                 );
         } else {
             //Create
-            const shoutout = new ShoutOut(form.value.content, 'Olli');
+            const shoutout = new ShoutOut(form.value.content, 'Dummy');
             this.shoutoutService.addShoutOut(shoutout)
                 .then(
                     data => console.log(data)

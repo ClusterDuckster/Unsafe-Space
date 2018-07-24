@@ -51,7 +51,16 @@ export class AuthService {
 
         return this.http.post(this.authUrl + '/signin', body, {headers: this.headers})
             .toPromise()
-            .then((res: Response) => res.json())
+            .then((res: Response) => {
+                var data = res.json();
+                console.log(data);
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('userId', data.userId);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('userdata', JSON.stringify(data.data));
+                localStorage.setItem('usersettings', JSON.stringify(data.settings));
+                return data;
+            })
             .catch((error: Response) => {
                 this.errorService.handleError(error.json());
                 return Promise.reject(error.json());
@@ -74,7 +83,13 @@ export class AuthService {
     }
 
     getRoom():string {
-        return  localStorage.getItem('defRoom');
+        var settings = JSON.parse(localStorage.getItem('usersettings'));
+        return  settings ? settings.defaultRoom : undefined;
+    }
+
+    getCurGame():string {
+        var data = JSON.parse(localStorage.getItem('userdata'));
+        return  data ? data.curGame : undefined;
     }
 
 }

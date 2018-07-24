@@ -3,14 +3,22 @@ var router = express.Router();
 var Promise = require('bluebird');
 var jwt = require('jsonwebtoken');
 
-var ShoutOut = require('../models/shoutout')
-var User = require('../models/user')
+var ShoutOut = require('../models/shoutout');
+var User = require('../models/user');
 
 router.get('/', function (req, res, next) {
     ShoutOut.find()
         .populate('user', 'username')
         .exec()
         .then(function(shoutouts) {
+            for (let shoutout of shoutouts) {
+                if(shoutout.user === null){
+                    shoutout.user = {
+                        username: '(deleted)',
+                        _id: 'Der hat sich einfach gelöscht man'
+                    };
+                }
+            }
             return res.status(200).json({
                 message: 'found shoutouts',
                 objects: shoutouts
@@ -29,7 +37,7 @@ router.use('/', function(req, res, next) {
     jwt.verify(req.query.token, 'secret', function(err, decoded) {
         if (err) {
             return res.status(401).json({
-                title: 'Not authenticated',
+                title: 'Authentication Error',
                 error: err
             });
         } else {

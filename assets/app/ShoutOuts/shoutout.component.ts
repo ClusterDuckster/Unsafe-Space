@@ -57,7 +57,8 @@ export class ShoutOutComponent {
     }
 
     belongsToUser() {
-        return localStorage.getItem('userId') == this.shoutout.userId;
+        var userId = localStorage.getItem('userId');
+        return userId? userId == this.shoutout.userId : false;
     }
 
 }

@@ -6,9 +6,12 @@
             <a routerLinkActive="activeNav" class="button" [routerLink]="['/shoutouts']">ShoutOuts</a>
             <a routerLinkActive="activeNav" class="button" [routerLink]="['/home']">Home</a>
             <a routerLinkActive="activeNav" class="button" [routerLink]="['/auth']" *ngIf="!isLoggedIn()">Authentication</a>
-            <a routerLinkActive="activeNav" class="button" [routerLink]="['/profile']" *ngIf="isLoggedIn()">Profile</a>
+            <a routerLinkActive="activeNav" class="button" [routerLink]="['/profile', getUserId()]" *ngIf="isLoggedIn()">Profile</a>
             <a routerLinkActive="activeNav" class="button" [routerLink]="['/chat']" *ngIf="isLoggedIn()">Chat</a>
             <a class="button" (click)="onTest()">Test</a>
+            <a routerLinkActive="activeNav" class="button" [routerLink]="['/lobby', getCurGame()]"
+                [class.disabled]="isIngame()" *ngIf="isLoggedIn()"
+            >Lobby</a>
         </nav>
     </div>
     <user-info class="user-info"></user-info>

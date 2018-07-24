@@ -21,13 +21,8 @@ router.post('/signin', function (req, res, next) {
 
     User.findOne(searchCriteria)
         .then(function(user){
-            if(!user){
-                return res.status(401).json({
-                    title: 'Login failed',
-                    error: {message: 'Invalid login credentials'}
-                });
-            }
-            if(!user.validPassword(req.body.password)){
+            //If no user or password not valid
+            if(!user ? true : !user.validPassword(req.body.password)){
                 return res.status(401).json({
                     title: 'Login failed',
                     error: {message: 'Invalid login credentials'}
@@ -45,8 +40,8 @@ router.post('/signin', function (req, res, next) {
                 token: token,
                 username: user.username,
                 userId: user._id,
-                curRoom: user.data.curRoom,
-                defRoom: user.settings.defaultRoom
+                settings: user.settings,
+                data: user.data
             });
         })
         .catch(function(error){

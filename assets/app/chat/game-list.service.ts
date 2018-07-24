@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 
 import { Observable, Subject } from 'rxjs/Rx';
 
+import { LobbyService } from "../lobby/lobby.service";
 import { AuthService } from "../Auth/auth.service";
 import { WebsocketService } from "../websocket.service";
 
@@ -11,6 +12,7 @@ import { Game } from "./game.model";
 
 export class GameListService {
 
+    joinedGameSubject:Subject<any>;
     createdGameSubject:Subject<any>;
     gameListSubject:Subject<any>;
     newGameSubject:Subject<any>;
@@ -22,12 +24,14 @@ export class GameListService {
     serviceListeningInitialized:boolean = false;
 
     constructor(
-        private authService: AuthService,
+        private lobbyService:LobbyService,
+        private authService:AuthService,
         private websocketService:WebsocketService
     ){}
 
     init() {
         if(!this.initialized) {
+            this.observeJoinedGame();
             this.observeCreatedGame();
             this.observeGameList();
             this.observeNewGame();
@@ -39,6 +43,7 @@ export class GameListService {
 
     initServiceListening() {
         if(!this.serviceListeningInitialized) {
+            this.serviceListenToJoinedGame();
             this.serviceListenToGameList();
             this.serviceListenToCreatedGame();
             this.serviceListenToNewGame();
@@ -69,15 +74,29 @@ export class GameListService {
             for(var i=0; i<serverGameList.length; i++) {
                 this.gameList.push(new Game(
                     serverGameList[i].id,
-                    serverGameList[i].name
+                    serverGameList[i].name,
+                    serverGameList[i].maxPlayers,
+                    serverGameList[i].curPlayers
                 ));
             }
         });
     }
 
+    serviceListenToJoinedGame() {
+        this.joinedGameSubject.subscribe( (gameId) => {
+            var userdata = JSON.parse(localStorage.getItem('userdata'));
+            userdata.curGame = gameId;
+            localStorage.setItem('userdata', JSON.stringify(userdata));
+            console.log('TODO: redirect to Lobby');
+            console.log(gameId);
+        });
+    }
+
     serviceListenToCreatedGame() {
         this.createdGameSubject.subscribe((game) => {
-            //TODO: Redirect zur Lobby
+            console.log('Created Game');
+            console.log(game);
+            this.joinGame(game._id);
         });
     }
 
@@ -92,6 +111,16 @@ export class GameListService {
             var index = this.gameList.map((e)=>{return e.id;}).indexOf(game.id);
             this.gameList.splice(index, 1);
         });
+    }
+
+    observeJoinedGame() {
+        this.joinedGameSubject = <Subject<any>>this.websocketService
+        .listenToSocketEvent(
+            'joinedGame',
+            function(data) {
+                // console.log('passing message through chat service');
+            }
+        );
     }
 
     observeCreatedGame() {

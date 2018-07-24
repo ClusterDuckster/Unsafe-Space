@@ -29,8 +29,8 @@
     --third-bg-color: rgb(30, 40, 50);
     --third-bg-color-light: rgb(30, 50, 60);
     --third-bg-color-lighter: rgb(35, 60, 70);
-    --fourth-bg-color: rgb(36, 42, 56);
-    --fourth-bg-color-light: rgb(40, 52, 72);
+    --fourth-bg-color: rgb(30, 35, 40);
+    --fourth-bg-color-light: rgb(45, 50, 60);
 
     --button-color-passive: rgb(16, 80, 80);
     --button-color-active: rgb(32, 160, 160);
@@ -469,8 +469,22 @@ my-app {
 }
 
 .chatRoomUser {
+    justify-content: space-between;
     background-color: var(--fourth-bg-color);
     border: 2px solid var(--fourth-bg-color-light);
+}
+
+.chatRoomUserName {
+    padding-top: calc(0.5*var(--main-padding));
+    padding-left: calc(0.5*var(--main-padding));
+    padding-right: calc(0.5*var(--main-padding));
+}
+
+.infoButton {
+    font-size: 18px;
+    margin: 0px;
+    padding: 0px 10px;
+    padding-top: 4px;
 }
 
 .chatSide {
@@ -485,13 +499,32 @@ my-app {
 .gameListElement {
     overflow-y: hidden;
     cursor: pointer;
+    padding-top: calc(1.5*var(--main-padding));
+    padding-left: calc(1.5*var(--main-padding));
+    padding-right: calc(1.5*var(--main-padding));
     background-color: var(--fourth-bg-color);
+    border: 2px solid var(--fourth-bg-color-light);
 }
 
 .gameListElementInfo {
-    opacity: 0;
+    margin-top: 0.3em;
 }
 
+.lobby {
+    background-color: var(--sec-bg-color);
+}
+
+.lobbyPlayers {
+    background-color: var(--main-bg-color);
+}
+
+.lobbyChat {
+    background-color: var(--main-bg-color);
+}
+
+.lobbySettings {
+    background-color: var(--main-bg-color);
+}
 
 /*-------------*/
 /* BLANK SPACE */

@@ -12,13 +12,13 @@ var gameSchema = mongoose.Schema({
 	startedOn: Date,
 
 	players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-	maxPlayers: Number,
+	maxPlayers: {type:Number, default: 2},
 
 	settings: {
 
 		//TODO more settings?
 
-		map: String
+		map: {type:String, default:'default'}
 
 	}
 

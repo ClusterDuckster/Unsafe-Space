@@ -15,14 +15,29 @@ export class HeaderComponent {
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    constructor(private http: Http, private authService: AuthService) {}
+    constructor(
+        private http: Http,
+        private authService: AuthService
+    ) {}
 
     onTest() {
-        console.log('check');
+        console.log(this.getCurGame());
     }
 
     isLoggedIn() {
         return this.authService.isLoggedIn();
+    }
+
+    isIngame() {
+        return JSON.parse(localStorage.getItem('userdata')).curGame ? true : false;
+    }
+
+    getCurGame() {
+        return JSON.parse(localStorage.getItem('userdata')).curGame;
+    }
+
+    getUserId() {
+        return localStorage.getItem('userId');
     }
 
 }

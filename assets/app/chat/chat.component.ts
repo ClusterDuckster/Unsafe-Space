@@ -13,10 +13,13 @@ import { GameListService } from "./game-list.service";
 
 export class ChatComponent implements OnInit {
 
+    private chatId = 'chat';
+
     constructor(private chatService: ChatService, private gameListService:GameListService) {}
 
     ngOnInit(): void {
         this.chatService.init();
+        this.chatService.initServiceListening();
         this.gameListService.init();
     }
 

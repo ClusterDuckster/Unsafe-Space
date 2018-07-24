@@ -3,8 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { ShoutoutModule } from "./ShoutOuts/shoutout.module";
 import { ChatModule } from "./chat/chat.module";
+import { LobbyModule } from "./lobby/lobby.module";
 
 import { AppComponent } from "./app.component";
 import { routing } from "./app.routing";
@@ -24,7 +26,6 @@ import { UserInfoComponent } from "./header/user-info.component";
 
 import { ProfileComponent } from "./profile/profile.component";
 
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -34,7 +35,7 @@ import { ProfileComponent } from "./profile/profile.component";
         UserInfoComponent,
         ProfileComponent,
         ErrorComponent,
-        WelcomeComponent
+        WelcomeComponent,
     ],
     imports: [
         BrowserModule,
@@ -44,12 +45,13 @@ import { ProfileComponent } from "./profile/profile.component";
         HttpModule,
         BrowserAnimationsModule,
         ShoutoutModule,
-        ChatModule
+        ChatModule,
+        LobbyModule
     ],
     providers: [
         AuthService,
         WebsocketService,
-        ErrorService
+        ErrorService,
     ],
     bootstrap: [AppComponent]
 })

@@ -64,6 +64,7 @@ export class GameListComponent implements OnInit {
     }
 
     joinActiveGame(event) {
+        console.log('join geklickt, aktives Spiel-ID: ' + this.activeGame.id);
         this.gameListService.joinGame(this.activeGame.id);
         event.stopPropagation();
     }

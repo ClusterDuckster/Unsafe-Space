@@ -5,14 +5,18 @@
         <li *ngFor="let game of gameListService.gameList"
             (click)="onSelect(game)"
             class="box gameListElement">
-            {{ game.name }} <br>
+
+            {{ game.name }}
             <div    [@listElementState]="game.state"
-                    class="flexVertical gameListElementInfo"
+                    class="flexVertical"
+                    style="opacity: 0;"
             >
-                Hier kommt die game Info hin
-                <br>
-                Platzhalter hält den Platz
-                <button class="button" (click)="joinSelectedGame($event)">Join</button>
+                <div class="gameListElementInfo">
+                    Players: {{game.curPlayers}}/{{game.maxPlayers}}
+                    <br>
+                    Platzhalter hält den Platz
+                </div>
+                <button class="button" (click)="joinActiveGame($event)">Join</button>
             </div>
         </li>
     </ul>

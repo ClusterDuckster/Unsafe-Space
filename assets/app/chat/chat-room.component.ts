@@ -15,8 +15,6 @@ import { ChatMessage } from "./chatMessage.model";
 
 export class ChatRoomComponent implements OnInit{
 
-    // curRoom:string;
-    // usernames:Array<string>;
     roomForm: FormGroup;
 
     constructor(
@@ -29,15 +27,8 @@ export class ChatRoomComponent implements OnInit{
             room: new FormControl(null, null)
         });
 
-        //Lets the chatService listen on changes in the room
-        this.chatService.initServiceListening(this.authService.getRoom());
-
-        // this.chatService.roomChangeSubject.subscribe( (data) => {
-        //     var roomInfo = JSON.parse(data);
-        //     this.curRoom = roomInfo.room;
-        //     this.usernames = roomInfo.usersInRoom;
-        //     console.log(roomInfo);
-        // });
+        //Joins room on initializing
+        this.chatService.changeRoom(this.authService.getRoom());
     }
 
     onSubmit() {

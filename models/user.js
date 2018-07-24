@@ -30,6 +30,7 @@ var userSchema = mongoose.Schema({
 		chatColor	 : String
 	},
 	data 			 : {
+		curGame		 : { type: mongoose.Schema.Types.ObjectId, ref: 'Game' },
 		curRoom		 : String
 	},
 

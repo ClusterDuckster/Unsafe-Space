@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { Http, Response, Headers } from "@angular/http";
 
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -48,8 +48,8 @@ export class ShoutOutService {
                     return newShoutout;
                 })
                 .catch((error) => {
-                    this.errorService.handleError(error.json());
-                    return Promise.reject(error.json());
+                    this.errorService.handleError(error);
+                    return Promise.reject(error);
                 });
     }
 
@@ -82,8 +82,9 @@ export class ShoutOutService {
                 return transformedShoutouts;
             })
             .catch((error) => {
-                this.errorService.handleError(error.json());
-                return Observable.throw(error.json());
+                console.log(error);
+                this.errorService.handleError(error);
+                return Observable.throw(error);
             });
     }
 
